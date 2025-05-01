@@ -17,7 +17,7 @@
         contactNo: '01618900000',
         address: 'Uganda',
     }
-    const { contactNo: phoneNo, name: { middleName: midName } } = user; //Name Elias
+    const { contactNo: phoneNo, name: { middleName: midName } } = user; //Name Alias
     console.log(phoneNo, midName);
 
 
