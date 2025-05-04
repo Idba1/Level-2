@@ -14,8 +14,39 @@
     // const boolArray: boolean[] = [true, false, true];
     const boolArray: GenericType<boolean> = [true, false, true];
 
+    type User = {
+        name: string;
+        age: number;
+    }
 
     const user: GenericType<{ name: string, age: number }> = [
+        {
+            name: 'Idba',
+            age: 100
+        },
+        {
+            name: 'Owasfia',
+            age: 100
+        }
+    ]
+
+    const user2: GenericType<User> = [
+        {
+            name: 'Idba',
+            age: 100
+        },
+        {
+            name: 'Owasfia',
+            age: 100
+        }
+    ]
+
+    interface User2  {
+        name: string;
+        age: number;
+    }
+
+    const user3: GenericType<User2> = [
         {
             name: 'Idba',
             age: 100
