@@ -54,6 +54,7 @@
         c: 'cc',
         d: 'dd',
     }
+    console.log(obj1.a);
 
 
 
