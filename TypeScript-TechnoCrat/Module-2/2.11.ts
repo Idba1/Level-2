@@ -55,6 +55,7 @@
         d: 'dd',
     }
     console.log(obj1.a);
+    console.log(obj1.b);
 
 
 
