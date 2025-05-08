@@ -1,129 +1,65 @@
-# 2. Understanding the `keyof` Keyword in TypeScript
+# Understanding Enums in TypeScript
 
-The `keyof` keyword in TypeScript is a powerful utility that helps create safer, more predictable code when dealing with object properties.
+## What is an Enum?
 
----
+In TypeScript, an enum (short for enumeration) is a way to give friendly names to sets of numeric or string values. Enums make it easier to work with a group of related values by giving each value a name that’s easier to remember and use in your code.
 
-##  What is `keyof`?
+## Why Use Enums?
 
-The `keyof` keyword is used to extract all the **property names (keys)** of a type or interface as a **union of string literal types**.
+Enums help make code cleaner, more readable, and less error-prone. Instead of using hard-coded values like numbers or strings again and again, you can use enum names which are easier to manage.
 
----
+## Example: Numeric Enum
 
-##  Why is it useful?
-
-- It ensures you only access **valid properties** of an object.
-- Prevents runtime errors by catching mistakes at compile time.
-- Enhances **type safety** and **developer experience** via autocompletion.
-
----
-
-##  Example:
+In your code, you created a numeric enum called Day:
 
 ```ts
-type User = {
-  name: string;
-  age: number;
-};
-
-function getValue(obj: User, key: keyof User): string | number {
-  return obj[key];
-}
-
-const user: User = { name: "Monira", age: 21 };
-
-console.log(getValue(user, "name")); // output: Monira
-console.log(getValue(user, "age"));  // output: 21
-
-```
-
-
-
-
-
-# 3. Understanding `any`, `unknown`, and `never` in TypeScript
-
-TypeScript introduces advanced types that improve code safety and clarity. Among them, `any`, `unknown`, and `never` are often misunderstood but serve distinct and important purposes. Here's a concise breakdown of how and when to use each.
-
----
-
-##  `any`
-
-- Represents **any value**.
-- **No type checking** is enforced.
-- You can assign and use the value however you like typeScript won't complain.
-
-### Example:
-
-```ts
-let value: any = "Hello";
-value = 10;
-value = true;
-
-
-```
-#  Understanding `any`, `unknown`, and `never` in TypeScript
-
-TypeScript provides powerful type checking features that help catch errors early and improve code quality. Among its advanced types are `any`, `unknown`, and `never`. Each serves a different purpose and should be used appropriately.
-
----
-
-##  `any`
-
-The `any` type disables all type checking. A variable declared with `any` can hold **any value**, and TypeScript won't check its type at all.
-
-```ts
-let value: any = "Hello";
-value = 10;
-value = true;
-````
-
-###  Use Case
-
-* When you're working with legacy code or third pparty libraries where type information isn't available.
-
-
----
-
-##  `unknown`
-
-The `unknown` type is similar to `any` in that it can hold any value, **but** TypeScript **forces** you to do a type check before using it.
-
-```ts
-let data: unknown = "Hello";
-
-if (typeof data === "string") {
-  console.log(data.toUpperCase()); 
+enum Day {
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday
 }
 ```
 
-### Use Case
+In this example:
 
-* When you want to accept any value but still enforce type safety before using it.
-
-###  Benefit
-
-Stronger and safer than `any`, since TypeScript ensures proper type checks.
-
----
-
-##  `never`
-
-The `never` type represents values that **never occur**. It's used in functions that:
-
-* Always throw an error
-* Never return (infinite loops, etc.)
+- Day.Monday has the value 0  
+- Day.Tuesday has the value 1  
 
 ```ts
-function throwError(): never {
-  throw new Error("Galti se error ho gaya");
+function getDayType(day: Day): string {
+    return day === Day.Saturday || day === Day.Sunday ? "Weekend" : "Weekday";
 }
 ```
 
-###  Use Case
+This function checks whether the day is Saturday or Sunday, and returns "Weekend" or "Weekday" based on the day.
 
-* Functions that are expected to never return a value.
-* Exhaustiveness checks in `switch` statements.
+### Why is this helpful?
 
+Using `Day.Saturday` instead of the number `5` makes your code easier to read and understand. You don’t have to remember which number stands for which day.
 
+## Example: String Enum
 
+```ts
+enum Direction {
+    Up = "UP",
+    Down = "DOWN",
+    Left = "LEFT",
+    Right = "RIGHT"
+}
+```
+
+In a function, you can use it like this:
+
+```ts
+function move(direction: Direction) {
+    console.log("Moving", direction);
+}
+
+move(Direction.Left); // Output: Moving LEFT
+```
+
+String enums are useful when you want readable values and easy debugging, since the output will show words like "LEFT" instead of a number.
