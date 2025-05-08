@@ -3,7 +3,7 @@
 
     class Vehicle {
         private make: string;
-        private year: number;
+        public year: number;
 
         constructor(make: string, year: number) {
             this.make = make;
