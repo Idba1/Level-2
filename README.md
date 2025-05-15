@@ -1,129 +1,205 @@
-# 2. Understanding the `keyof` Keyword in TypeScript
+# 4. Understanding Enums in TypeScript
 
-The `keyof` keyword in TypeScript is a powerful utility that helps create safer, more predictable code when dealing with object properties.
+## What is an Enum?
 
----
+In TypeScript, an enum (short for enumeration) is a way to give friendly names to sets of numeric or string values. Enums make it easier to work with a group of related values by giving each value a name that’s easier to remember and use in your code.
 
-##  What is `keyof`?
+## Why Use Enums?
 
-The `keyof` keyword is used to extract all the **property names (keys)** of a type or interface as a **union of string literal types**.
+Enums help make code cleaner, more readable, and less error-prone. Instead of using hard-coded values like numbers or strings again and again, you can use enum names which are easier to manage.
 
----
+## Example: Numeric Enum
 
-##  Why is it useful?
-
-- It ensures you only access **valid properties** of an object.
-- Prevents runtime errors by catching mistakes at compile time.
-- Enhances **type safety** and **developer experience** via autocompletion.
-
----
-
-##  Example:
+In your code, you created a numeric enum called Day:
 
 ```ts
-type User = {
-  name: string;
-  age: number;
+enum Day {
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday
+}
+```
+
+In this example:
+
+- Day.Monday has the value 0  
+- Day.Tuesday has the value 1  
+
+```ts
+function getDayType(day: Day): string {
+    return day === Day.Saturday || day === Day.Sunday ? "Weekend" : "Weekday";
+}
+```
+
+This function checks whether the day is Saturday or Sunday, and returns "Weekend" or "Weekday" based on the day.
+
+### Why is this helpful?
+
+Using `Day.Saturday` instead of the number `5` makes your code easier to read and understand. You don’t have to remember which number stands for which day.
+
+## Example: String Enum
+
+```ts
+enum Direction {
+    Up = "UP",
+    Down = "DOWN",
+    Left = "LEFT",
+    Right = "RIGHT"
+}
+```
+
+In a function, you can use it like this:
+
+```ts
+function move(direction: Direction) {
+    console.log("Moving", direction);
+}
+
+move(Direction.Left); // Output: Moving LEFT
+```
+
+String enums are useful when you want readable values and easy debugging, since the output will show words like "LEFT" instead of a number.
+
+
+
+
+
+
+# 5. Understanding Type Inference in TypeScript
+
+## What is Type Inference?
+
+In TypeScript, type inference means that the compiler can automatically guess the type of a variable, even if you don’t write it yourself. It makes TypeScript smart enough to understand types based on your code.
+
+## Why is Type Inference Helpful?
+
+- Less typing: You don’t have to write types again and again.
+- Safer code: TypeScript still catches mistakes early.
+- Clean code: Your code is shorter and easier to read.
+
+---
+
+## Example 1: Type Inference with Arrays
+
+
+```ts
+const rollNumbers: GenaricArray<number> = [3, 6, 8];
+```
+
+You told TypeScript the type using `GenaricArray<number>`. But even if you write:
+
+```ts
+const rollNumbers = [3, 6, 8]; // TypeScript understands this is number[]
+```
+
+TypeScript will automatically guess it’s a number array. That’s type inference.
+
+---
+
+## Example 2: Type Inference with Functions
+
+
+
+```ts
+const createArray = (pharm: string): string[] => {
+    return [pharm];
+}
+```
+
+You gave the return type as `string[]`. But you could skip that, and TypeScript will still know:
+
+```ts
+const createArray = (pharm: string) => {
+    return [pharm]; // inferred as string[]
+}
+```
+
+---
+
+## Example 3: Type Inference with Objects and Interfaces
+
+You used interface to define object shapes. For example:
+
+```ts
+interface User {
+    id: number;
+    name: string;
+}
+
+const resGenericObj = createArrayWithGeneric<User>({
+    id: 1016,
+    name: 'Mr. Reduan',
+});
+```
+
+Here, the type `User` is passed as a generic to the function. This helps keep code organized and reusable.
+
+Another example with interface and type inference:
+
+```ts
+interface EmilabWatch {
+    brand: string;
+    model: string;
+    display: string;
+}
+
+interface Developer<T, X = null> {
+    name: string;
+    computers: {
+        brand: string;
+        model: string;
+        releseYear: number;
+    };
+    smartWatch: T;
+    bike?: X;
+}
+
+const poorDeveloper: Developer<EmilabWatch> = {
+    name: 'Reduan',
+    computers: {
+        brand: 'dkslf',
+        model: 'klsdahf',
+        releseYear: 8979,
+    },
+    smartWatch: {
+        brand: 'emilab',
+        model: 'sdfj',
+        display: 'OLED',
+    }
 };
+```
 
-function getValue(obj: User, key: keyof User): string | number {
-  return obj[key];
+Here, the type of `poorDeveloper` is clearly set using an interface, but if you use this object later, TypeScript can infer types for each property when you access them:
+
+```ts
+console.log(poorDeveloper.name); // inferred as string
+console.log(poorDeveloper.computers.releseYear); // inferred as number
+```
+
+You don’t need to tell TypeScript the type every time—it understands it from the interface and the data.
+
+---
+
+## Example 4: Type Inference in a Function That Adds New Properties
+
+```ts
+const addCourseToStudent = <T>(student: T) => {
+    const course = 'Next level web Development';
+    return {
+        ...student,
+        course
+    };
 }
 
-const user: User = { name: "Monira", age: 21 };
-
-console.log(getValue(user, "name")); // output: Monira
-console.log(getValue(user, "age"));  // output: 21
-
+const student1 = addCourseToStudent({
+    name: 'Reduan Ahmad',
+    email: 'dksfa@gkadf.com',
+    devType: 'NLWD'
+});
 ```
 
-
-
-
-
-# 3. Understanding `any`, `unknown`, and `never` in TypeScript
-
-TypeScript introduces advanced types that improve code safety and clarity. Among them, `any`, `unknown`, and `never` are often misunderstood but serve distinct and important purposes. Here's a concise breakdown of how and when to use each.
-
----
-
-##  `any`
-
-- Represents **any value**.
-- **No type checking** is enforced.
-- You can assign and use the value however you like typeScript won't complain.
-
-### Example:
-
-```ts
-let value: any = "Hello";
-value = 10;
-value = true;
-
-
-```
-#  Understanding `any`, `unknown`, and `never` in TypeScript
-
-TypeScript provides powerful type checking features that help catch errors early and improve code quality. Among its advanced types are `any`, `unknown`, and `never`. Each serves a different purpose and should be used appropriately.
-
----
-
-##  `any`
-
-The `any` type disables all type checking. A variable declared with `any` can hold **any value**, and TypeScript won't check its type at all.
-
-```ts
-let value: any = "Hello";
-value = 10;
-value = true;
-````
-
-###  Use Case
-
-* When you're working with legacy code or third pparty libraries where type information isn't available.
-
-
----
-
-##  `unknown`
-
-The `unknown` type is similar to `any` in that it can hold any value, **but** TypeScript **forces** you to do a type check before using it.
-
-```ts
-let data: unknown = "Hello";
-
-if (typeof data === "string") {
-  console.log(data.toUpperCase()); 
-}
-```
-
-### Use Case
-
-* When you want to accept any value but still enforce type safety before using it.
-
-###  Benefit
-
-Stronger and safer than `any`, since TypeScript ensures proper type checks.
-
----
-
-##  `never`
-
-The `never` type represents values that **never occur**. It's used in functions that:
-
-* Always throw an error
-* Never return (infinite loops, etc.)
-
-```ts
-function throwError(): never {
-  throw new Error("Galti se error ho gaya");
-}
-```
-
-###  Use Case
-
-* Functions that are expected to never return a value.
-* Exhaustiveness checks in `switch` statements.
-
-
-
+Here, TypeScript infers the type of `student1` from the input, and adds the new field `course`. You didn’t define a type, but TypeScript handled it perfectly.
