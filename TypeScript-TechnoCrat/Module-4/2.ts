@@ -10,3 +10,4 @@ const books = [
 
 const book1 = filterByRating(books);
 console.log(book1);
+

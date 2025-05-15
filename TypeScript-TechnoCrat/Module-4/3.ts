@@ -11,8 +11,8 @@
     }
 
 
-    const test1 = concatenateArrays(["a", "b"], ["c"]);       // Output: ["a", "b", "c"]
-    console.log(test1);
+    concatenateArrays(["a", "b"], ["c"]);       // Output: ["a", "b", "c"]
+   
     const test2 = concatenateArrays([1, 2], [3, 4], [5]);     // Output: [1, 2, 3, 4, 5]
     console.log(test2);
 }

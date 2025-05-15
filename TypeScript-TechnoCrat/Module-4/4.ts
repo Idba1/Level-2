@@ -1,5 +1,5 @@
 {
-    // 
+
 
     class Vehicle {
         private make: string;
@@ -10,8 +10,8 @@
             this.year = year;
         }
 
-        public getInfo(): string {
-            return `Make: ${this.make}, Year: ${this.year}`
+        public getInfo(): void {
+            console.log(`Make: ${this.make}, Year: ${this.year}`);
         }
     }
 
@@ -23,15 +23,14 @@
             this.model = model;
         }
 
-        public getModel(): string {
-            return `Model: ${this.model}`
+        public getModel(): void {
+            console.log(`Model: ${this.model}`);
         }
     }
 
     const myCar = new Car("Toyota", 2020, "Corolla");
-    const t1 = myCar.getInfo();   // Output: "Make: Toyota, Year: 2020"
-    const t2 = myCar.getModel();  // Output: "Model: Corolla"
-    console.log(t1);
-    console.log(t2);
+
+    myCar.getInfo();    // Logs: Make: Toyota, Year: 2020
+    myCar.getModel();   // Logs: Model: Corolla
 
 }
