@@ -34,3 +34,33 @@ db. test.find({age:{$gte: 18}}).sort({ age:1 })
 db. test.find({age:{$lt: 12}})
 
 db. test.find({age:{$lte: 12}})
+
+
+
+
+
+db.test.find({ age: { $gt: 18, $lt: 30 } })
+
+db.test.find({ age: { $gte: 18, $lte: 30 } })
+
+db.test.find({ gender: "Female", age: { $gte: 18, $lte: 30 } }, { age: 1, name: 1 }).sort({ age: 1 })
+
+db.test.find({ gender: "Female", age: { $in: [18, 20, 22] } }, { age: 1, name: 1 }).sort({ age: 1 })
+
+db.test.find({
+    gender: "Male",
+    age: { $in: [18, 20, 22, 24] }
+}, { age: 1, name: 1 }).sort({ age: 1 });
+
+db.test.find({
+    gender: "Male",
+    age: { $nin: [18, 20, 22, 24] }
+}, { age: 1, name: 1 }).sort({ age: 1 });
+
+
+db.test.find({
+    gender: "Female",
+    age: { $in: [18, 20, 22, 24, 26,28] },
+    interests:{$in: ["Cooking","Gaming"]}
+}, 
+{ age: 1, name: 1, interests:1 }).sort({ age: 1 });
