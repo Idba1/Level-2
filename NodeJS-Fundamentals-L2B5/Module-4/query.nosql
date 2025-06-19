@@ -1,0 +1,36 @@
+db.test.find({})
+    .projection({})
+    .sort({})
+    .limit(0)
+
+
+db.test.insertMany([
+    { name: "complete web development" },
+    { name: "Next level web development" }
+])
+
+
+db. test.findOne({age:17})
+
+db. test.find({age:17}, {name:1, age:1})
+
+db. test.find({age:17}).project({name:1})
+
+
+
+
+db. test.find({gender:{$eq: "Male"}})
+
+db. test.findOne({gender:{$eq: "Male"}})
+
+db. test.find({age:{$eq: 12}})
+
+db. test.find({age:{$ne: 12}})
+
+db. test.find({age:{$gt: 18}})
+
+db. test.find({age:{$gte: 18}}).sort({ age:1 })
+
+db. test.find({age:{$lt: 12}})
+
+db. test.find({age:{$lte: 12}})
