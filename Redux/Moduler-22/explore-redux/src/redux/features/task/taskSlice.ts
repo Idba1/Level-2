@@ -23,7 +23,15 @@ const initialState: IinitialState = {
             description: "Create Home Page And Routing",
             dueDate: "2035-11",
             isCompleted: false,
-            priority: "High"
+            priority: "Medium"
+        },
+        {
+            id: "loading!",
+            title: "Create Github Repo",
+            description: "create stage branch",
+            dueDate: "2035-11",
+            isCompleted: false,
+            priority: "Low"
         },
     ],
     filter: "all"
