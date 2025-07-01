@@ -1,3 +1,4 @@
+import { AddTaskModule } from "@/components/module/tasks/AddTaskModule";
 import TaskCard from "@/components/module/tasks/TaskCard";
 import { selectFilter, selectTasks } from "@/redux/features/task/taskSlice";
 import { useAppSelector } from "@/redux/hook"
@@ -12,8 +13,13 @@ const Tasks = () => {
 
     return (
         <div>
-            <h1>Tasks</h1>
-            {tasks.map(task => <TaskCard key={task.id} task={task} />)}
+            <div className="flex justify-between items-center">
+                <h1>Tasks</h1>
+                <AddTaskModule></AddTaskModule>
+            </div>
+            <div>
+                {tasks.map(task => <TaskCard key={task.id} task={task} />)}
+            </div>
         </div>
     )
 }
